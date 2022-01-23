@@ -1,0 +1,38 @@
+version: '3.1'
+
+services:
+  app: # nom du service. C'est le nom de la configuration. Ce n'est pas un mot clé, on peut donc le modifier
+    build: . # repertoire du dockerfile qui va contenir notre application flask
+    container_name: flask_app # nom du conteneur dans "docker ps"
+    stdin_open: true # docker run -i
+    tty: true # docker run -t
+    environment:
+      SRV_PORT: 9000
+      MONGO_URI: mongodb://mongo:27017/app
+    #restart: unless-stopped # redémarre automatique le conteneur s'il s'arrête à moins que la demande est explicite
+    ports: # notre serveur est configuré par défaut sur le port 9000
+      - 9000:9000
+    volumes: # volumes partagés. Ajout/modification/suppression d'un fichier est impacté dans le conteneur est dans l'hote
+        - .:/srv/flask/ # le répertoire courant est synchronisé avec le répertoire /srv/flask du conteneur
+
+  mongo: # base de données mongodb (NoSQL)
+    image: mongo:4.2.8-bionic # choix de l'image à télécharger
+    container_name: flask_mongo # nom du conteneur dans la liste des conteneurs "docker ps"
+    restart: unless-stopped # redémarre automatique le conteneur s'il s'arrête à moins que la demande est explicite
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports: # mongo démarre en port 27017 mais sur l'OS hote, c'est le port 2000 qui lui donne accès
+      - 27017:27017
+
+  mongo-ui: # interface graphique pour mongdb : port 2001
+    image: mongo-express # choix de l'image à télécharger
+    container_name: flask_mongo_ui # nom du conteneur dans la liste des conteneurs
+    restart: unless-stopped # redémarre automatique le conteneur s'il s'arrête à moins que la demande est explicite
+    depends_on: # on s'assure que le service "mongo" est bien démarré
+      - mongo # on s'assure que le service mongo démarre (attention, on parle du conteneur et pas de la bdd)
+    environment: # variables d'environnements chargés dans le conteneur
+      - ME_CONFIG_MONGODB_SERVER=mongo # variable d'environnement pour le nom d'hote de la bdd
+      - ME_CONFIG_MONGODB_PORT=27017 # port de la bdd mongo
+    ports: # mongoui démarre en port 2001 mais sur l'OS hote, c'est le port 8081 qui lui donne accès
+      - 8081:8081

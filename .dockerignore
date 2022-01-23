@@ -1,0 +1,13 @@
+# ignore tout
+**
+
+# Répertoire acceptés
+!/app/**
+!/requirements.txt
+
+# ignore les fichiers inutiles dans les répertoires acceptés
+**/__pycache__
+**/*.pyc
+**/*.pyo
+**/*.pyd
+**/.Python

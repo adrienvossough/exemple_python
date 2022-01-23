@@ -1,0 +1,23 @@
+# Standard pour la configuration des éditeurs de texte
+# https://EditorConfig.org
+
+# indique qu'il est le fichier par défaut du projet.
+# nous pouvons trouver d'autres fichiers dans les sous-répertoires pour compléter celui-ci
+root = true
+
+[*] # pour tous les fichiers
+end_of_line = lf # compatibilité avec Unix
+insert_final_newline = true # rajoute un saut de ligne en pied d'un fichier
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true # efface les espaces en fin de ligne
+charset = utf-8
+
+[*.py] # que pour les fichiers Python
+max_line_length = 119
+
+[Makefile]
+indent_style = tab
+
+[*.bat]
+indent_style = tab
