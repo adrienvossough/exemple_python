@@ -15,18 +15,21 @@ C'est un exemple de projet respectant des bonnes pratiques dans sa structure
 
 ## Installation
 
-A la racine du projet
+1. Faire une copie de sample.env et nommer cette copie en ".env" (sans les guillemets)
+2. Modifier les variables contenues dans ".env"
 
-```powershell
-# seulement la première fois
-py venv .venv
+3. A la racine du projet
 
-# à chaque fois que l'on réouvre un nouveau terminal
-.\.venv\Scripts\Activate.ps1
+    ```powershell
+    # seulement la première fois
+    py venv .venv
 
-# la première fois
-pyp install .
-```
+    # à chaque fois que l'on réouvre un nouveau terminal
+    .\.venv\Scripts\Activate.ps1
+
+    # la première fois
+    pip install -r requirements
+    ```
 
 ## Démarrage
 

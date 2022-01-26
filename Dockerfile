@@ -2,18 +2,23 @@ FROM python:3.8.3-buster
 
 LABEL maintainer="adrien@semifir.com"
 
+
 # Liste des variables d'environnement du conteneur
-ENV export FLASK_APP=/srv/web/
+ENV FLASK_APP=/srv/web/
 ENV SRV_PORT=3000
 ENV MONGO_URI=mongodb://localhost:27017/myDatabase
 
-# fabrique le répertoire /srv/flask
-# et se place dedans
+# mise à jour du système
+RUN apt update && apt upgrade -y
+
+# mkdir /srv/flask && cd /srv/flask
 WORKDIR /srv/flask
+
 # le premier point correspond au répertoire courant au Dockerfile
 # le second point correspond au répertoire /srv/flask dans le conteneur
 # Grace au .dockerignore, Docker ne voit qu'une partie des fichiers et ne va donc pas tout copier
 COPY . .
+
 # on exécute l'installation de toutes les dépendances sur le conteneur
 RUN pip install -r requirements.txt
 

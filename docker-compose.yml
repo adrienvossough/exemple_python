@@ -2,7 +2,11 @@ version: '3.1'
 
 services:
   app: # nom du service. C'est le nom de la configuration. Ce n'est pas un mot clé, on peut donc le modifier
-    build: . # repertoire du dockerfile qui va contenir notre application flask
+    build:  # repertoire du dockerfile qui va contenir notre application flask
+      context: .
+      dockerfile: Dockerfile
+    image: avm/exemple-python
+
     container_name: flask_app # nom du conteneur dans "docker ps"
     stdin_open: true # docker run -i
     tty: true # docker run -t

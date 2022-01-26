@@ -2,7 +2,7 @@
 **
 
 # Répertoire acceptés
-!/app/**
+!/src/**
 !/requirements.txt
 
 # ignore les fichiers inutiles dans les répertoires acceptés

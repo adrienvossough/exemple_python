@@ -8,6 +8,7 @@ def init_app() -> Flask:
     Returns:
         Flask: application "Flask" avec les routes
     """
+    # views : répertoire des pages html
     app = Flask(__name__, template_folder='views')
     # fonction qui charge l'ensemble des routes de notre serveur
     config.load_routes(app)
